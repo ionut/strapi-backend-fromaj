@@ -362,45 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiEvenimenteEvenimente extends Schema.CollectionType {
-  collectionName: 'evenimentes';
-  info: {
-    singularName: 'evenimente';
-    pluralName: 'evenimentes';
-    displayName: 'Events';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    location: Attribute.String & Attribute.Required;
-    persons: Attribute.Integer & Attribute.Required;
-    eventType: Attribute.Enumeration<
-      ['nunta', 'picnic', 'onomastica', 'botez', 'atelier']
-    > &
-      Attribute.Required;
-    pictures: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true> &
-      Attribute.Required;
-    date: Attribute.Date & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::evenimente.evenimente',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::evenimente.evenimente',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -827,6 +788,84 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiEvenimenteEvenimente extends Schema.CollectionType {
+  collectionName: 'evenimentes';
+  info: {
+    singularName: 'evenimente';
+    pluralName: 'evenimentes';
+    displayName: 'Events';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    location: Attribute.String & Attribute.Required;
+    persons: Attribute.Integer & Attribute.Required;
+    eventType: Attribute.Enumeration<
+      ['nunta', 'picnic', 'onomastica', 'botez', 'atelier']
+    > &
+      Attribute.Required;
+    pictures: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true> &
+      Attribute.Required;
+    date: Attribute.Date & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::evenimente.evenimente',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::evenimente.evenimente',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductProduct extends Schema.CollectionType {
+  collectionName: 'products';
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'Product';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    productName: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'api::product.product', 'productName'> &
+      Attribute.Required;
+    personNumber: Attribute.Integer & Attribute.Required;
+    weight: Attribute.Decimal & Attribute.Required;
+    price: Attribute.Decimal & Attribute.Required;
+    description: Attribute.Text & Attribute.Required;
+    pictures: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true> &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -837,7 +876,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::evenimente.evenimente': ApiEvenimenteEvenimente;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -846,6 +884,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::evenimente.evenimente': ApiEvenimenteEvenimente;
+      'api::product.product': ApiProductProduct;
     }
   }
 }
